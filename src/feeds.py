@@ -148,10 +148,53 @@ def fetch_remoteok(name: str, url: str) -> list[FeedItem]:
     return items
 
 
+def fetch_jobicy(name: str, url: str) -> list[FeedItem]:
+    """Jobicy public remote-jobs JSON API (no key)."""
+    logger.info("Fetching Jobicy API: %s", name)
+    resp = _session().get(url, timeout=TIMEOUT)
+    resp.raise_for_status()
+    data = resp.json()
+    jobs = data.get("jobs") or []
+    items: list[FeedItem] = []
+    for job in jobs:
+        title = job.get("jobTitle") or "(untitled)"
+        company = job.get("companyName") or ""
+        if company:
+            title = f"{title} @ {company}"
+        link = job.get("url") or ""
+        desc = job.get("jobDescription") or job.get("jobExcerpt") or ""
+        tags: list[str] = []
+        industry = job.get("jobIndustry")
+        if isinstance(industry, list):
+            tags.extend(str(x) for x in industry if x)
+        elif industry:
+            tags.append(str(industry))
+        for key in ("jobType", "jobLevel", "jobGeo"):
+            val = job.get(key)
+            if isinstance(val, list):
+                tags.extend(str(x) for x in val if x)
+            elif val:
+                tags.append(str(val))
+        items.append(
+            FeedItem(
+                id=_stable_id(name, link or str(job.get("id") or ""), title),
+                title=title.strip(),
+                url=link,
+                summary=_strip_html(desc)[:2000],
+                source=name,
+                published=job.get("pubDate"),
+                tags=tags,
+                raw_text=_strip_html(desc),
+            )
+        )
+    return items
+
+
 FETCHERS = {
     "rss": fetch_rss,
     "remotive": fetch_remotive,
     "remoteok": fetch_remoteok,
+    "jobicy": fetch_jobicy,
 }
 
 

@@ -2,22 +2,33 @@
 niche: WordPress / small-business web freelancers
 max_items: 40
 
+# Prefer concrete niche phrases over ultra-generic tokens (html/css/cms) that
+# create false positives from boilerplate job HTML.
 keywords:
   - wordpress
   - woocommerce
+  - wordpress developer
+  - woocommerce developer
+  - managed wordpress
+  - wordpress migration
   - website redesign
   - website development
-  - web development
-  - web design
-  - cms
-  - content management
+  - website maintenance
+  - website migration
+  - website build
+  - custom website
+  - business website
   - small business website
   - ecommerce website
+  - web development
+  - web design
+  - freelance web
   - elementor
+  - gutenberg
   - squarespace
   - webflow
-  - freelance web
-  - website maintenance
+  - shopify
+  - landing page
   - digital presence
 
 # Optional soft signals for fit scoring (not hard filters)
@@ -26,6 +37,8 @@ location_hints:
   - united states
   - us
   - usa
+  - worldwide
+  - anywhere
 
 # Prefer official RSS / public APIs. No ToS-breaking scrapers.
 feeds:
@@ -36,6 +49,10 @@ feeds:
 
   - name: Federal Register — website / web development notices
     url: "https://www.federalregister.gov/api/v1/documents.rss?conditions%5Bterm%5D=website+development+OR+web+design"
+    type: rss
+
+  - name: Federal Register — digital / web presence
+    url: "https://www.federalregister.gov/api/v1/documents.rss?conditions%5Bterm%5D=website+redesign+OR+web+content+management"
     type: rss
 
   - name: We Work Remotely — Programming
@@ -57,6 +74,15 @@ feeds:
   - name: RemoteOK
     url: "https://remoteok.com/api"
     type: remoteok
+
+  # Jobicy public JSON API (no key) — strong WordPress / SMB web signal
+  - name: Jobicy — WordPress tag
+    url: "https://jobicy.com/api/v2/remote-jobs?count=50&tag=wordpress"
+    type: jobicy
+
+  - name: Jobicy — Design tag
+    url: "https://jobicy.com/api/v2/remote-jobs?count=50&tag=design"
+    type: jobicy
 
 # Optional: set OPENAI_API_KEY for LLM summaries; otherwise templates are used.
 openai:
