@@ -27,8 +27,15 @@ def _find_keywords(text: str, keywords: list[str]) -> list[str]:
 
 def _fit_score(matched: list[str], text: str, location_hints: list[str]) -> int:
     score = min(70, 15 * len(matched))
-    # Strong niche signals
-    for strong in ("wordpress", "woocommerce", "elementor"):
+    # Strong niche signals (WordPress / SMB web freelancers)
+    for strong in (
+        "wordpress",
+        "woocommerce",
+        "elementor",
+        "shopify",
+        "webflow",
+        "squarespace",
+    ):
         if strong in text:
             score += 15
     for hint in location_hints:
