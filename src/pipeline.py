@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-import argparse
 import logging
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -49,48 +47,3 @@ def run(config_path: Path, out_dir: Path) -> Path:
     path = write_report(out_dir, md)
     logger.info("Wrote %s", path)
     return path
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Poll free boards / government RSS, filter keywords, write alert pack Markdown."
-    )
-    parser.add_argument(
-        "-c",
-        "--config",
-        type=Path,
-        default=ROOT / "config.yaml",
-        help="Path to config.yaml (default: ./config.yaml)",
-    )
-    parser.add_argument(
-        "-o",
-        "--out-dir",
-        type=Path,
-        default=ROOT / "out",
-        help="Output directory (default: ./out)",
-    )
-    parser.add_argument("-v", "--verbose", action="store_true")
-    args = parser.parse_args(argv)
-
-    logging.basicConfig(
-        level=logging.DEBUG if args.verbose else logging.INFO,
-        format="%(levelname)s %(message)s",
-    )
-
-    config_path = args.config
-    if not config_path.exists():
-        example = ROOT / "config.example.yaml"
-        if example.exists() and config_path == ROOT / "config.yaml":
-            logger.info("No config.yaml; copying from config.example.yaml")
-            config_path.write_text(example.read_text(encoding="utf-8"), encoding="utf-8")
-        else:
-            logger.error("Config not found: %s", config_path)
-            return 1
-
-    path = run(config_path, args.out_dir)
-    print(path)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

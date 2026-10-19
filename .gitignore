@@ -7,6 +7,9 @@ __pycache__/
 .env
 config.yaml
 out/*.md
+out/*.html
+out/*.mailto.txt
+out/*.approved.json
 !out/.gitkeep
 *.egg-info/
 dist/

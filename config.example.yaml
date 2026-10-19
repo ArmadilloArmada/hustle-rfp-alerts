@@ -62,3 +62,8 @@ feeds:
 openai:
   model: gpt-4o-mini
   max_tokens: 220
+
+# Export / send path (human-approve required; never auto-sends).
+# Optional: set BUTTONDOWN_API_KEY to create a Buttondown *draft* on export.
+export:
+  mailto_to: ""  # optional default for: python -m src export … --mailto-to
