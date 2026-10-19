@@ -1,0 +1,64 @@
+# Copy to config.yaml and tune for your niche.
+niche: WordPress / small-business web freelancers
+max_items: 40
+
+keywords:
+  - wordpress
+  - woocommerce
+  - website redesign
+  - website development
+  - web development
+  - web design
+  - cms
+  - content management
+  - small business website
+  - ecommerce website
+  - elementor
+  - squarespace
+  - webflow
+  - freelance web
+  - website maintenance
+  - digital presence
+
+# Optional soft signals for fit scoring (not hard filters)
+location_hints:
+  - remote
+  - united states
+  - us
+  - usa
+
+# Prefer official RSS / public APIs. No ToS-breaking scrapers.
+feeds:
+  # Official Federal Register RSS (no API key). Keyword filter still applied locally.
+  - name: Federal Register — information technology services
+    url: "https://www.federalregister.gov/api/v1/documents.rss?conditions%5Bterm%5D=information+technology+services"
+    type: rss
+
+  - name: Federal Register — website / web development notices
+    url: "https://www.federalregister.gov/api/v1/documents.rss?conditions%5Bterm%5D=website+development+OR+web+design"
+    type: rss
+
+  - name: We Work Remotely — Programming
+    url: "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+    type: rss
+
+  - name: We Work Remotely — Design
+    url: "https://weworkremotely.com/categories/remote-design-jobs.rss"
+    type: rss
+
+  - name: Remotive — Software Development
+    url: "https://remotive.com/api/remote-jobs?category=software-dev"
+    type: remotive
+
+  - name: Remotive — Design
+    url: "https://remotive.com/api/remote-jobs?category=design"
+    type: remotive
+
+  - name: RemoteOK
+    url: "https://remoteok.com/api"
+    type: remoteok
+
+# Optional: set OPENAI_API_KEY for LLM summaries; otherwise templates are used.
+openai:
+  model: gpt-4o-mini
+  max_tokens: 220
